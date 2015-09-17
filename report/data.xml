@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <record id="header_base" model="ir.header_webkit">
+            <field name="name">Base Header</field>
+            <field name="orientation">Portrait</field>
+            <field name="format">A4</field>
+            <field name="margin_top">10</field>
+            <field name="margin_bottom">1</field>
+            <field name="html">
+                <![CDATA[<html>
+                    <head>
+                        <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+                        <script>
+                            function subst() {
+                            var vars={};
+                            var x=document.location.search.substring(1).split('&');
+                            for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+                            var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+                            for(var i in x) {
+                            var y = document.getElementsByClassName(x[i]);
+                            for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                                }
+                            }
+                        </script>
+                        <style type="text/css">
+                            ${css}
+                        </style>
+                    </head>
+                    <body style="border: 0; margin: 0;" onload="subst()">
+                        <table class="header"
+                            style="border-bottom: 0px solid black; width: 100%">
+                            <tr><td></td></tr>
+                        </table>
+                    </body>
+                </html>]]>
+			</field>
+			<field name="footer_html">
+                <![CDATA[<html>
+                    <head>
+                        <meta content="text/html; charset=UTF-8" http-equiv="content-type"/>
+                        <script>
+                            function subst() {
+                                var vars={};
+                                var x=document.location.search.substring(1).split('&');
+                                for(var i in x) {var z=x[i].split('=',2);vars[z[0]] = unescape(z[1]);}
+                                var x=['frompage','topage','page','webpage','section','subsection','subsubsection'];
+                                for(var i in x) {
+                                var y = document.getElementsByClassName(x[i]);
+                                for(var j=0; j<y.length; ++j) y[j].textContent = vars[x[i]];
+                                }
+                            }
+                        </script>
+                        <style type="text/css">
+                            ${css}
+                            table{
+                                border: 1px solid white;
+                            }
+                            td{
+                                border: 1px solid white;
+                            }
+                        </style>
+                    </head>
+                </html>]]>
+		    </field>
+		</record>
+    </data>
+</openerp>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding='UTF-8'?>
+<openerp>
+    <data>
+        <!-- Scheduler for  compute the number of active users-->
+        <record model="ir.cron" id="cron_user_active">
+            <field name="name">Number of users in the database</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">months</field>
+            <field name="numbercall">-1</field>
+            <field eval="True" name="doall"/>
+            <field eval="'users.connection'" name="model"/>
+            <field eval="'do_run_scheduler'" name="function"/>
+            <field eval="'()'" name="args"/>
+        </record>
+    </data>
+</openerp>

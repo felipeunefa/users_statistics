@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+        <!--Statistic Connexion's User-->
+        <record model="ir.ui.view" id="view_user_stat_connection_tree">
+            <field name="name">Statistics Users Connection</field>
+            <field name="model">users.connection</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Logs" create="false">
+                    <field name="user_id"/>
+                    <field name="datetime_connection"/>
+                    <field name="nb_request"/>
+                    <field name="year" invisible="1"/>
+                    <field name="week" invisible="1"/>
+                    <field name="month" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_user_stat_connection_graph">
+            <field name="name">Statistics Users Connection Graph</field>
+            <field name="model">users.connection</field>
+            <field name="arch" type="xml">
+                <graph string="Logs" type="bar">
+                    <field name="user_id"/>
+                    <field name="datetime_connection"/>
+                    <field name="nb_request" operator="+"/>
+                </graph>
+            </field>
+        </record>
+
+        <record id="view_user_stat_connection_filter" model="ir.ui.view">
+        	<field name="name">users.connection.filter</field>
+        	<field name="model">users.connection</field>
+        	<field name="arch" type="xml">
+            	<search string="Logs">
+            		<field name="user_id"/>
+                    <filter icon="terp-go-year" string="Current Year" name="year" domain="[('year','=',time.strftime('%%Y'))]" />
+                    <filter string="Last 6 months" name="datetime_connection" domain="[('datetime_connection', '&gt;=', (context_today() - datetime.timedelta(167)).strftime('%%Y-%%m-01') )]"/>
+                    <group expand="1" string="Group By...">
+                        <filter name="group_datetime_connection" string="Mois" icon="terp-document-new" context="{'group_by':'datetime_connection'}"/>
+                        <filter name="group_week" string="Week" icon="terp-document-new" context="{'group_by':'week'}"/>
+                        <filter name="group_user_id" string="User" icon="terp-document-new" context="{'group_by':'user_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record id="action_open_user_stat_connection" model="ir.actions.act_window">
+            <field name="name">Statistics Users Connection</field>
+            <field name="res_model">users.connection</field>
+            <field name="view_mode">tree,graph</field>
+            <field name="context">{'search_default_group_datetime_connection':1, 'search_default_group_user_id':1, 'group_by':[], 'group_by_no_leaf':0}</field>
+        </record>
+
+		<menuitem name="Users Statistics" id="user_stat_menu" parent="base.menu_reporting" sequence="10" groups="users_statistics.group_users_stat"/>
+		<menuitem name="Connection Analysis" id="user_stat_connection_menu" parent="user_stat_menu" sequence="1" action="action_open_user_stat_connection" groups="users_statistics.group_users_stat"/>
+
+
+    </data>
+</openerp>
