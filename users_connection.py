@@ -4,12 +4,6 @@
 #    OpenERP, Open Source Management Solution
 #    Copyright (C) 2004-2010 Tiny SPRL (<http://tiny.be>).
 #
-#    Adapted by Noviat to
-#     - enforce correct vat number
-#     - support negative balance
-#     - assign amount of tax code 71-72 correclty to grid 71 or 72
-#     - support Noviat tax code scheme
-#
 #    This program is free software: you can redistribute it and/or modify
 #    it under the terms of the GNU Affero General Public License as
 #    published by the Free Software Foundation, either version 3 of the
