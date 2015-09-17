@@ -31,6 +31,7 @@ import time
 import datetime
 from babel.dates import format_date
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
+from openerp import SUPERUSER_ID
 
 
 
@@ -42,8 +43,8 @@ class users_connection(osv.osv):
         res_users_obj = self.pool.get('res.users')
         users_active_obj = self.pool.get('users.active')
         res_lang_obj = self.pool.get('res.lang')
-
-        users_ids = res_users_obj.search(cr, uid,[('active','=',True)])
+        #Solo tener en cuenta usuarios que esten activos Y que aciven su cuenta.
+        users_ids = res_users_obj.search(cr, uid,[('active','=',True),('login_date','!=',False)])
         nb_active_users = len(users_ids)
 
         # Lang of user : need format
@@ -68,7 +69,7 @@ class users_connection(osv.osv):
                 'nb_users' : nb_active_users,
                 'week' : week
             }
-            nb_active_users_id = users_active_obj.create(cr, 1, vals, context=None)
+            nb_active_users_id = users_active_obj.create(cr, SUPERUSER_ID, vals, context=None)
             cr.commit()
 
         return True
