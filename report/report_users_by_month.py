@@ -73,7 +73,7 @@ class report_parser(report_sxw.rml_parse):
             format = lang.date_format
 
         data = {
-            'company_name' : str(company_name),
+            'company_name' : company_name,
             'user' : user,
             'database' : db,
             'date_print' : time.strftime(format),
