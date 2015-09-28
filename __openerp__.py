@@ -50,6 +50,7 @@ This module allows to display statistics about users of the system.
         'view/user_connection_view.xml',
         'view/users_active_view.xml',
         'view/scheduler_user_active.xml',
+        'view/users_last_access_view.xml',
         # ========== REPORT ==========
         "report/data.xml",
         "report/report_users_by_month.xml",

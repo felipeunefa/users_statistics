@@ -1,3 +1,4 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_users_connection,access_users_connection,model_users_connection,group_users_stat,1,1,0,1
 access_users_active,access_users_active,model_users_active,group_users_stat,1,1,0,1
+last_access_users,last_access_users,model_users_last_access,group_users_stat,1,0,0,0

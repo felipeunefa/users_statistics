@@ -21,6 +21,7 @@
 import users_active
 import users_connection
 import res_users
+import last_access
 import ir_actions
 import report
 
