@@ -39,6 +39,7 @@ from openerp.tools.translate import _
 import time
 from openerp.tools import DEFAULT_SERVER_DATETIME_FORMAT
 import datetime
+from openerp import SUPERUSER_ID
 
 
 class res_users(osv.osv):
@@ -46,12 +47,12 @@ class res_users(osv.osv):
 
     # Overide authentification method
     def authenticate(self, db, login, password, user_agent_env):
-        uid = self.login(db, login, password)
+        uid = self._login(db, login, password)
         cr = pooler.get_db(db).cursor()
         users_connection_obj = self.pool.get('users.connection')
         res_users_obj = self.pool.get('res.users')
 
-        uid = self.login(db, login, password)
+        uid = self._login(db, login, password)
 
         if uid :
             user = res_users_obj.browse(cr, uid, uid)
@@ -65,7 +66,7 @@ class res_users(osv.osv):
                         'week' :                datetime.datetime.today().isocalendar()[1],
                         'month' :               int(time.strftime("%m")),
                     }
-                    connexion_id = users_connection_obj.create(cr, 1, vals, context=None)
+                    connexion_id = users_connection_obj.create(cr, SUPERUSER_ID, vals, context=None)
                     cr.commit()
 
         return super(res_users, self).authenticate(db, login, password, user_agent_env)
